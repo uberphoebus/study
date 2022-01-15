@@ -1,1 +1,7 @@
-# rpa_basic
+# RPA tutorial
+
+## Dependencies
+
+* pyautogui
+* pyperclip
+* opencv-python
