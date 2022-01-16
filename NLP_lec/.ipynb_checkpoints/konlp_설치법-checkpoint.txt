@@ -1,0 +1,32 @@
+JAVA_HOME
+path : bin
+
+pip install JPype1
+pip install konlpy
+
+또는
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#jpype
+JPype1‑1.3.0‑cp38‑cp38‑win_amd64.whl
+pip install JPype1-1.3.0-cp38-cp38-win_amd64.whl
+
+
+pip install tweepy==3.10.0
+
+
+SystemError: java.nio.file.InvalidPathException: Illegal char <*> at index 56: C:\IT\pythonProject2\venv\Lib\site-packages\konlpy\java\*
+
+C:\AI\Python36\Lib\site-packages\konlpy\jvm.py 파일에서 *제거
+folder_suffix = [
+        # JAR
+        '{0}',
+        # Java sources
+        '{0}{1}bin',
+        '{0}{1}*', <----
+
+
+
+from konlpy.tag import Okt
+okt = Okt()
+
+print(okt.pos('아버지가 방에 들어가신다'))
+print(okt.pos('아버지가방에들어가신다'))
