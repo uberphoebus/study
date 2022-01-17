@@ -55,6 +55,11 @@ def browse_dest_path():
     txt_dest_path.delete(0, END)
     txt_dest_path.insert(0, folder_selected)
 
+# 이미지 통합
+def merge_image():
+    print(list_file.get(0, END)) # 모든 파일 목록 가져오기
+    pass
+
 # 시작
 def start():
     # 각 옵션들 값을 확인
@@ -71,6 +76,7 @@ def start():
     if len(txt_dest_path.get()) == 0:
         msgbox.showwarning('경고', '저장 경로를 선택하세요')
         return
+
 
 # 파일 프레임 (파일 추가, 선택 삭제)
 file_frame = Frame(root)
