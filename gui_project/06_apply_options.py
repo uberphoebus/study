@@ -59,39 +59,80 @@ def browse_dest_path():
 
 # 이미지 통합
 def merge_image():
-    # print(list_file.get(0, END)) # 모든 파일 목록 가져오기
-    images = [Image.open(x) for x in list_file.get(0, END)]
-    # size -> size[0] width, size[1] height
-    # widths = [x.size[0] for x in images]
-    # heights = [x.size[1] for x in images]
-    widths, heights = zip(*(x.size for x in images))
     
-    # 최대 넓이, 전체 높이 구해옴
-    max_width, total_height = max(widths), sum(heights)
-    
-    # 스케치북 준비
-    result_img = Image.new(
-        'RGB', (max_width, total_height), 
-        (255, 255, 255) # 배경 흰색
-        )
-    y_offset = 0 # y 위치
-    # for img in images:
-    #     result_img.paste(img, (0, y_offset))
-    #     y_offset += img.size[1] # 높이 값만큼 더해 줌
-    
-    for idx, img in enumerate(images):
-        result_img.paste(img, (0, y_offset))
-        y_offset += img.size[1]
+    try:
+        # 가로 넓이
+        img_width = cmb_width.get()
+        if img_width == '원본유지':
+            img_width = -1 # -1 일때는 원본 기준으로
+        else:
+            img_width = int(img_width)
         
-        progress = (idx + 1) / len(images) * 100 # %
-        p_var.set(progress)
-        progress_bar.update()
-    
-    dest_path = os.path.join(
-        txt_dest_path.get(), 'nado_photo.jpg'
-        )
-    result_img.save(dest_path)
-    msgbox.showinfo('알림', '작업이 완료되었습니다')
+        # 간격
+        img_space = cmb_space.get()
+        if img_space == '좁게':
+            img_space = 30
+        elif img_space == '보통':
+            img_space = 90
+        else: # 없음
+            img_space = 0
+        
+        # 포맷
+        img_format = cmb_format.get().lower()
+        if img_format == 'png':
+            pass
+        
+        images = [Image.open(x) for x in list_file.get(0, END)]
+        
+        # 이미지 사이즈 리스트에 넣어서 하나씩 처리
+        image_sizes = []
+        if img_width > -1:
+            # width 값 변경
+            image_sizes = [
+                (
+                    int(img_width), 
+                    int(img_width * x.size[1] / x.size[0])
+                ) for x in images
+            ]
+        else:
+            # 원본 사이즈 적용
+            image_sizes = [(x.size[0], x.size[1]) for x in images]
+        
+        widths, heights = zip(*image_sizes)
+        
+        # 최대 넓이, 전체 높이 구해옴
+        max_width, total_height = max(widths), sum(heights)
+        
+        # 스케치북 준비
+        if img_space > 0: # 이미지 간격 옵션 적용
+            total_height += (img_space * (len(images) - 1))
+        
+        result_img = Image.new(
+            'RGB', (max_width, total_height), 
+            (255, 255, 255) # 배경 흰색
+            )
+        y_offset = 0 # y 위치
+        for idx, img in enumerate(images):
+            
+            # width가 원본유지가 아닐 때에는 이미지 크기를 조정
+            if img_width > -1:
+                img = img.resize(image_sizes[idx])
+                pass
+            
+            result_img.paste(img, (0, y_offset))
+            y_offset += (img.size[1] + img_space) # height 값 + 사용자가 지정한 간격
+            
+            progress = (idx + 1) / len(images) * 100 # %
+            p_var.set(progress)
+            progress_bar.update()
+        
+        # 포맷 옵션 처리
+        file_name = 'nado_photo.' + img_format
+        dest_path = os.path.join(txt_dest_path.get(), file_name)
+        result_img.save(dest_path)
+        msgbox.showinfo('알림', '작업이 완료되었습니다')
+    except Exception as err: # 예외 처리
+        msgbox.showerror('에러', err)
 
 # 시작
 def start():
