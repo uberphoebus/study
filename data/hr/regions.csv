@@ -1,0 +1,9 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 수요일-7월-14-2021   
+--------------------------------------------------------
+REM INSERTING into HR.REGIONS
+SET DEFINE OFF;
+Insert into HR.REGIONS (REGION_ID,REGION_NAME) values (1,'Europe');
+Insert into HR.REGIONS (REGION_ID,REGION_NAME) values (2,'Americas');
+Insert into HR.REGIONS (REGION_ID,REGION_NAME) values (3,'Asia');
+Insert into HR.REGIONS (REGION_ID,REGION_NAME) values (4,'Middle East and Africa');
