@@ -1,4 +1,4 @@
--- 3장
+/* 3장 */
 
 SELECT *
 FROM EMPLOYEES;
@@ -63,7 +63,8 @@ select *
 from EMPLOYEES
 where manager_id is not null;
 
--- 4장
+/* 4장 */
+
 select last_name,
     lower(last_name) lower적용,
     upper(last_name) upper,
@@ -192,4 +193,25 @@ select first_name,
     decode(department_id, 60, salary*1.1, salary),
     decode(department_id, 60, '10% 인상', '미인상')
 from EMPLOYEES;
+
+select employee_id,
+    first_name,
+    last_name,
+    salary,
+    case
+        when salary >= 9000 then '상위급여'
+        when salary between 6000 and 8999 then '중위급여'
+        else '하위급여'
+    end as 급여등급
+from employees
+where job_id = 'IT_PROG'
+;
+
+select employee_id,
+    salary,
+    rank()          over(order by salary desc),
+    dense_rank()    over(order by salary desc),
+    row_number()    over(order by salary desc)
+from employees;
+
 
