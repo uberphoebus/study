@@ -1,4 +1,4 @@
-/* 3¿Â */
+/* 3Ïû• */
 
 SELECT *
 FROM EMPLOYEES;
@@ -10,7 +10,7 @@ ORDER BY EMPLOYEE_ID DESC;
 select job_id
 from EMPLOYEES;
 
-select employee_id as ªÁø¯π¯»£, first_name as ¿Ã∏ß, last_name as º∫
+select employee_id as ÏÇ¨ÏõêÎ≤àÌò∏, first_name as Ïù¥Î¶Ñ, last_name as ÏÑ±
 from EMPLOYEES;
 
 select employee_id, 
@@ -18,11 +18,11 @@ select employee_id,
     email||'@'||'company.com'
 from EMPLOYEES;
 
-select employee_id as ªÁø¯π¯»£, 
-    salary as ±ﬁø©, 
-    salary + 500 as √ﬂ∞°±ﬁø©, 
-    salary - 100 as ¿Œ«œ±ﬁø©, 
-    (salary * 1.1) / 2 as ¡∂¡§±ﬁø©
+select employee_id as ÏÇ¨ÏõêÎ≤àÌò∏, 
+    salary as Í∏âÏó¨, 
+    salary + 500 as Ï∂îÍ∞ÄÍ∏âÏó¨, 
+    salary - 100 as Ïù∏ÌïòÍ∏âÏó¨, 
+    (salary * 1.1) / 2 as Ï°∞Ï†ïÍ∏âÏó¨
 from EMPLOYEES;
 
 select *
@@ -63,10 +63,10 @@ select *
 from EMPLOYEES
 where manager_id is not null;
 
-/* 4¿Â */
+/* 4Ïû• */
 
 select last_name,
-    lower(last_name) lower¿˚øÎ,
+    lower(last_name) lowerÏ†ÅÏö©,
     upper(last_name) upper,
     email,
     initcap(email) initcap
@@ -78,7 +78,7 @@ from employees;
 select job_id, replace(job_id, 'ACCOUNT', 'ACCNT')
 from employees;
 
-select first_name, lpad(first_name, 12, '*') lpad¿˚øÎ∞·∞˙
+select first_name, lpad(first_name, 12, '*') lpadÏ†ÅÏö©Í≤∞Í≥º
 from employees;
 
 select job_id,
@@ -123,7 +123,7 @@ from employees
 where employee_id between 100 and 106;
 
 select hire_date,
-    next_day(hire_date, '±›ø‰¿œ'),
+    next_day(hire_date, 'Í∏àÏöîÏùº'),
     next_day(hire_date, 6)
 from employees
 where employee_id between 100 and 106;
@@ -165,7 +165,7 @@ from dual;
 select to_char(sysdate, 'hh:mi:ss PM'),
     to_char(sysdate, 'yyyy/mm/dd hh:mi:ss PM'),
     to_char(sysdate, 'hh-mi-ss PM'),
-    to_char(sysdate, ' "≥Ø¬•:" yyyy/mm/dd "Ω√∞¢:" hh:mi:ss PM')
+    to_char(sysdate, ' "ÎÇ†Ïßú:" yyyy/mm/dd "ÏãúÍ∞Å:" hh:mi:ss PM')
 from dual;
 
 select to_char(salary, '999999999'),
@@ -191,7 +191,7 @@ select first_name,
     department_id,
     salary,
     decode(department_id, 60, salary*1.1, salary),
-    decode(department_id, 60, '10% ¿ŒªÛ', 'πÃ¿ŒªÛ')
+    decode(department_id, 60, '10% Ïù∏ÏÉÅ', 'ÎØ∏Ïù∏ÏÉÅ')
 from EMPLOYEES;
 
 select employee_id,
@@ -199,10 +199,10 @@ select employee_id,
     last_name,
     salary,
     case
-        when salary >= 9000 then 'ªÛ¿ß±ﬁø©'
-        when salary between 6000 and 8999 then '¡ﬂ¿ß±ﬁø©'
-        else '«œ¿ß±ﬁø©'
-    end as ±ﬁø©µÓ±ﬁ
+        when salary >= 9000 then 'ÏÉÅÏúÑÍ∏âÏó¨'
+        when salary between 6000 and 8999 then 'Ï§ëÏúÑÍ∏âÏó¨'
+        else 'ÌïòÏúÑÍ∏âÏó¨'
+    end as Í∏âÏó¨Îì±Í∏â
 from employees
 where job_id = 'IT_PROG'
 ;
@@ -218,49 +218,49 @@ select a.employee_id,
     a.department_id,
     b.department_name,
     salary,
-    rank()          over(partition by a.department_id order by salary desc) rank_±ﬁø©,
-    dense_rank()    over(partition by a.department_id order by salary desc) dense_rank_±ﬁø©,
-    row_number()    over(partition by a.department_id order by salary desc) row_number_±ﬁø©
+    rank()          over(partition by a.department_id order by salary desc) rank_Í∏âÏó¨,
+    dense_rank()    over(partition by a.department_id order by salary desc) dense_rank_Í∏âÏó¨,
+    row_number()    over(partition by a.department_id order by salary desc) row_number_Í∏âÏó¨
 from employees a, departments b
 where a.DEPARTMENT_ID = b.DEPARTMENT_ID
 order by b.DEPARTMENT_ID, a.SALARY desc;
 
-select count(salary) salary«‡ºˆ
+select count(salary) salaryÌñâÏàò
 from EMPLOYEES;
 
-select sum(salary) «’∞Ë,
-    avg(salary) ∆Ú±’,
-    sum(salary)/count(salary) ∞ËªÍ∆Ú±’
+select sum(salary) Ìï©Í≥Ñ,
+    avg(salary) ÌèâÍ∑†,
+    sum(salary)/count(salary) Í≥ÑÏÇ∞ÌèâÍ∑†
 from EMPLOYEES;
 
 select max(salary), min(salary), max(first_name), min(first_name)
 from EMPLOYEES;
 
-select job_id ¡˜π´,
-    sum(salary) ¡˜π´∫∞_√—±ﬁø©,
-    avg(salary) ¡˜π´∫∞_∆Ú±’±ﬁø©
+select job_id ÏßÅÎ¨¥,
+    sum(salary) ÏßÅÎ¨¥Î≥Ñ_Ï¥ùÍ∏âÏó¨,
+    avg(salary) ÏßÅÎ¨¥Î≥Ñ_ÌèâÍ∑†Í∏âÏó¨
 from EMPLOYEES
 where EMPLOYEE_ID >= 10
 group by job_id
-order by ¡˜π´∫∞_√—±ﬁø© desc, ¡˜π´∫∞_∆Ú±’±ﬁø©;
+order by ÏßÅÎ¨¥Î≥Ñ_Ï¥ùÍ∏âÏó¨ desc, ÏßÅÎ¨¥Î≥Ñ_ÌèâÍ∑†Í∏âÏó¨;
 
-select job_id job_id_¥Î±◊∑Ï,
-    manager_id manager_id_¡ﬂ±◊∑Ï,
-    sum(salary) ±◊∑Ï«Œ_√—±ﬁø©,
-    avg(salary) ±◊∑Ï«Œ_∆Ú±’±ﬁø©
+select job_id job_id_ÎåÄÍ∑∏Î£π,
+    manager_id manager_id_Ï§ëÍ∑∏Î£π,
+    sum(salary) Í∑∏Î£πÌïë_Ï¥ùÍ∏âÏó¨,
+    avg(salary) Í∑∏Î£πÌïë_ÌèâÍ∑†Í∏âÏó¨
 from EMPLOYEES
 where employee_id >= 10
 group by job_id, manager_id
-order by ±◊∑Ï«Œ_√—±ﬁø© desc, ±◊∑Ï«Œ_∆Ú±’±ﬁø©;
+order by Í∑∏Î£πÌïë_Ï¥ùÍ∏âÏó¨ desc, Í∑∏Î£πÌïë_ÌèâÍ∑†Í∏âÏó¨;
 
-select job_id ¡˜π´, sum(salary) ¡˜π´∫∞_√—±ﬁø©, avg(salary) ¡˜π´∫∞_∆Ú±’±ﬁø©
+select job_id ÏßÅÎ¨¥, sum(salary) ÏßÅÎ¨¥Î≥Ñ_Ï¥ùÍ∏âÏó¨, avg(salary) ÏßÅÎ¨¥Î≥Ñ_ÌèâÍ∑†Í∏âÏó¨
 from employees
 where employee_id >= 10
 group by job_id
 having sum(salary) > 30000
-order by ¡˜π´∫∞_√—±ﬁø© desc, ¡˜π´∫∞_∆Ú±’±ﬁø©;
+order by ÏßÅÎ¨¥Î≥Ñ_Ï¥ùÍ∏âÏó¨ desc, ÏßÅÎ¨¥Î≥Ñ_ÌèâÍ∑†Í∏âÏó¨;
 
-/* 6¿Â */
+/* 6Ïû• */
 select *
 from EMPLOYEES a, DEPARTMENTS b
 where a.DEPARTMENT_ID = b.DEPARTMENT_ID;
@@ -270,7 +270,7 @@ from EMPLOYEES a, departments b, locations c
 where a.DEPARTMENT_ID = b.DEPARTMENT_ID
     and b.LOCATION_ID = c.LOCATION_ID;
 
-select count(*) ¡∂¿Œ
+select count(*) Ï°∞Ïù∏
 from EMPLOYEES a, DEPARTMENTS b
 where a.DEPARTMENT_ID = b.DEPARTMENT_ID;
 
@@ -315,7 +315,7 @@ select DEPARTMENT_ID
 from EMPLOYEES;
 
 
-/* 7¿Â */
+/* 7Ïû• */
 
 select *
 from EMPLOYEES a
@@ -350,7 +350,70 @@ from EMPLOYEES a,
                     where department_name = 'IT' ) b
 where a.department_id = b.department_id;
 
-/* 8¿Â */
+/* 8Ïû• */
+
+insert into DEPARTMENTS ( department_id, department_name, manager_id, location_id)
+values
+(271, 'Sample_Dept', 200, 1700);
+select * from departments;
+
+insert into departments
+values
+(271, 'Sample_Dept', 200, 1700);
+select * from departments;
+
+update departments
+set manager_id = 201,
+    location_id = 1800
+where DEPARTMENT_NAME = 'Sample_Dept';
+select * from departments;
+
+update DEPARTMENTS
+set (manager_id, location_id) = ( select manager_id, location_id
+                                  from DEPARTMENTS
+                                  where department_id = 40)
+where department_name = 'Sample_Dept';
+select * from departments;
+
+delete from departments
+where DEPARTMENT_NAME = 'Sample_Dept';
+select * from departments;
 
 
+/* 10Ïû• */
 
+create table sample_product
+       ( product_id   number,
+         product_name varchar2(30),
+         manu_date    date
+         );
+
+insert into SAMPLE_PRODUCT values ( 1, 'television', to_date('140101', 'yymmdd'));
+insert into SAMPLE_PRODUCT values ( 2, 'washer', to_date('150101', 'yymmdd'));
+insert into SAMPLE_PRODUCT values ( 3, 'cleaner', to_date('160101', 'yymmdd'));
+select * from SAMPLE_PRODUCT;
+
+alter table sample_product add (factory varchar2(10));
+select * from SAMPLE_PRODUCT;
+
+alter table sample_product modify (factory char(10));
+select * from SAMPLE_PRODUCT;
+
+alter table sample_product rename column factory to factory_name;
+select * from SAMPLE_PRODUCT;
+
+alter table sample_product drop column factory_name;
+select * from SAMPLE_PRODUCT;
+
+truncate table sample_product;
+select * from SAMPLE_PRODUCT;
+
+drop table sample_product;
+
+
+/* 11Ïû• */
+
+select a.EMPLOYEE_ID, a.HIRE_DATE, b.DEPARTMENT_NAME, b.JOB_TITLE
+from EMPLOYEES a, HR.EMP_DETAILS_VIEW b
+where a.employee_id = b.employee_id
+    and a.EMPLOYEE_ID = 100;
