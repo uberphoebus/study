@@ -214,4 +214,143 @@ select employee_id,
     row_number()    over(order by salary desc)
 from employees;
 
+select a.employee_id,
+    a.department_id,
+    b.department_name,
+    salary,
+    rank()          over(partition by a.department_id order by salary desc) rank_급여,
+    dense_rank()    over(partition by a.department_id order by salary desc) dense_rank_급여,
+    row_number()    over(partition by a.department_id order by salary desc) row_number_급여
+from employees a, departments b
+where a.DEPARTMENT_ID = b.DEPARTMENT_ID
+order by b.DEPARTMENT_ID, a.SALARY desc;
+
+select count(salary) salary행수
+from EMPLOYEES;
+
+select sum(salary) 합계,
+    avg(salary) 평균,
+    sum(salary)/count(salary) 계산평균
+from EMPLOYEES;
+
+select max(salary), min(salary), max(first_name), min(first_name)
+from EMPLOYEES;
+
+select job_id 직무,
+    sum(salary) 직무별_총급여,
+    avg(salary) 직무별_평균급여
+from EMPLOYEES
+where EMPLOYEE_ID >= 10
+group by job_id
+order by 직무별_총급여 desc, 직무별_평균급여;
+
+select job_id job_id_대그룹,
+    manager_id manager_id_중그룹,
+    sum(salary) 그룹핑_총급여,
+    avg(salary) 그룹핑_평균급여
+from EMPLOYEES
+where employee_id >= 10
+group by job_id, manager_id
+order by 그룹핑_총급여 desc, 그룹핑_평균급여;
+
+select job_id 직무, sum(salary) 직무별_총급여, avg(salary) 직무별_평균급여
+from employees
+where employee_id >= 10
+group by job_id
+having sum(salary) > 30000
+order by 직무별_총급여 desc, 직무별_평균급여;
+
+/* 6장 */
+select *
+from EMPLOYEES a, DEPARTMENTS b
+where a.DEPARTMENT_ID = b.DEPARTMENT_ID;
+
+select a.EMPLOYEE_ID, a.DEPARTMENT_ID, b.DEPARTMENT_NAME, c.LOCATION_ID, c.CITY
+from EMPLOYEES a, departments b, locations c
+where a.DEPARTMENT_ID = b.DEPARTMENT_ID
+    and b.LOCATION_ID = c.LOCATION_ID;
+
+select count(*) 조인
+from EMPLOYEES a, DEPARTMENTS b
+where a.DEPARTMENT_ID = b.DEPARTMENT_ID;
+
+select a.EMPLOYEE_ID, a.FIRST_NAME, a.LAST_NAME, b.DEPARTMENT_ID, b.DEPARTMENT_NAME
+from EMPLOYEES a, DEPARTMENTS b
+where a.DEPARTMENT_ID = b.DEPARTMENT_ID(+)
+order by a.EMPLOYEE_ID;
+
+select a.EMPLOYEE_ID, a.FIRST_NAME, a.LAST_NAME, b.DEPARTMENT_ID, b.DEPARTMENT_NAME
+from EMPLOYEES a, DEPARTMENTS b
+where a.DEPARTMENT_ID(+) = b.DEPARTMENT_ID
+order by a.EMPLOYEE_ID;
+
+select a.EMPLOYEE_ID, a.FIRST_NAME, a.LAST_NAME, a.MANAGER_ID,
+    b.FIRST_NAME||' '||b.last_name manager_name
+from EMPLOYEES a, EMPLOYEES b
+where a.MANAGER_ID = b.EMPLOYEE_ID
+order by a.EMPLOYEE_ID;
+
+select DEPARTMENT_ID
+from EMPLOYEES
+union
+select DEPARTMENT_ID
+from DEPARTMENTS;
+
+select DEPARTMENT_ID
+from EMPLOYEES
+union all
+select DEPARTMENT_ID
+from DEPARTMENTS;
+
+select DEPARTMENT_ID
+from EMPLOYEES
+intersect
+select DEPARTMENT_ID
+from DEPARTMENTS;
+
+select DEPARTMENT_ID
+from DEPARTMENTS
+minus
+select DEPARTMENT_ID
+from EMPLOYEES;
+
+
+/* 7장 */
+
+select *
+from EMPLOYEES a
+where a.SALARY = (
+                    select salary
+                    from EMPLOYEES
+                    where last_name = 'De Haan'
+                    );
+
+select *
+from EMPLOYEES a
+where a.SALARY in (
+                    select min(salary)
+                    from EMPLOYEES
+                    group by department_id
+                    )
+order by a.SALARY desc;
+
+select *
+from EMPLOYEES a
+where (a.job_id, a.salary) in (
+                                select job_id, min(salary)
+                                from EMPLOYEES
+                                group by job_id
+                                )
+order by a.salary desc;
+
+select *
+from EMPLOYEES a,
+                  ( select department_id
+                    from departments
+                    where department_name = 'IT' ) b
+where a.department_id = b.department_id;
+
+/* 8장 */
+
+
 
