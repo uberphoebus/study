@@ -15,8 +15,6 @@
 import pygame
 import random
 
-from scipy import rand
-
 ############################################################
 # 기본 초기화(필수)
 pygame.init() # 초기화
@@ -50,7 +48,7 @@ character_speed, enempy_speed = 0.6, 0.3
 enemy = pygame.image.load(r'C:\workspace\mlProject\basic_pygame\enemy.png')
 enemy_size = enemy.get_rect().size
 enemy_width, enemy_height = enemy_size[0], enemy_size[1]
-enemy_x_pos = random.random() * (screen_width - enemy_width)
+enemy_x_pos = random.randint(0, screen_width - enemy_width)
 enemy_y_pos = 0
 
 ############################################################
@@ -86,7 +84,7 @@ while running:
     
     enemy_y_pos += enempy_speed * dt
     if enemy_y_pos > screen_height:
-        enemy_x_pos = random.random() * (screen_width - enemy_width)
+        enemy_x_pos = random.randint(0, screen_width - enemy_width)
         enemy_y_pos = 0
     
     # 4. 충돌 처리
