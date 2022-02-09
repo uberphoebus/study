@@ -55,5 +55,9 @@ for row in ws.iter_rows():
 for col in ws.iter_cols():
     print(col[0].value)
 
+# 슬라이싱
+for row in ws.iter_rows(min_row=1, max_row=5, min_col=2, max_col=3):
+    print(row[0].value)
+
 wb.save('sample2.xlsx')
 wb.close()
