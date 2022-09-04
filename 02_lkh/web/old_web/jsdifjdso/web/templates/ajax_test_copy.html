@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<hr>-------------------------------------------------
+<a href="/go_rest1?empno=7733">get 보내기</a>
+<hr>-------------------------------------------------
+<form method="get" action="/go_rest2">
+사원번호:<input type="text" name="empno">
+<input type="submit" value="보내기">
+</form>
+<hr>-------------------------------------------------
+<form method="post" action="/go_rest3">
+사원번호:<input type="text" name="empno" id="empno">
+<input type="submit" value="보내기">
+</form>
+<hr>-----------------------------------
+
+<input type="button" value="그냥버튼" id="send_btn">
+
+<hr>-------------------------------------------------
+<div id="result_div" style="height:100px; background-color: #eeeeee">  </div>
+<hr>-------------------------------------------------
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+    $(document).ready(function() {
+         alert($("#empno").val())
+
+         //$(document).on('click', "#send_btn", function(){
+                 $.ajax({
+                        url: "/go_rest4",
+                        method : 'POST',
+                        data: { empno: 7777777 },
+                        error : function() { alert("에러발생") },
+                        success: function( resString ) {
+                            console.log(resString)
+                            var resObj = JSON.parse(resString);
+                            console.log(resObj)
+                            html_string = "<table border=1>"
+                            $.each(resObj, function( index, value ) {
+                                //console.log( index + ": " + value );   //0  ['111', '1000']
+                                html_string += "<tr>"
+                                $.each(value, function( i, v ) {
+                                    console.log( i + ": " + v );   //0  '111', '1000'
+                                    html_string += "<td>" + v + "</td>"
+                                });
+                                html_string += "</tr>"
+                            });
+                            html_string += "</table>"
+                            $( "#result_div" ).html( "<strong>" + html_string + "</strong>" );
+                        },
+                        contentType : 'application/x-www-form-urlencoded; charset=UTF-8', //내가보내는거
+                        //dataType : "json"                     //xml, json, script, html  서버에서 줬으면 하는 타입
+                        //crossDomain : true
+                }); //e.o.ajax
+
+         //}); //e.o.click
+    }); //e.o.ready
+</script>
+
+
+</body>
+</html>
